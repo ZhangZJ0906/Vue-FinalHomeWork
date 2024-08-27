@@ -42,7 +42,7 @@
                         </ul>
 
                         <div class="todoList_statistics">
-                            <p v-if="completedTodo.length === 0" class=" fs-1 ">目前尚無待辦事項</p>
+                            <p v-if="alltodo.length === 0" class=" fs-1 ">目前尚無待辦事項</p>
                             <p v-else>{{ completedTodo.length }} 個已完成項目</p>
                         </div>
                     </div>
@@ -77,8 +77,7 @@ const content = ref('');
 const currentFilter = ref('all');
 
 const addtodo = () => {
-    if (loading.value) return;  // 防止重复点击
-    loading.value = true;
+   
     axios.post(`${api}/todos`, {
         'content': content.value
     }, {
