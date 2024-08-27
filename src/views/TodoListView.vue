@@ -43,7 +43,7 @@
 
                         <div class="todoList_statistics">
                             <p v-if="alltodo.length === 0" class=" fs-1 ">目前尚無待辦事項</p>
-                            <p v-else>{{ completedTodo.length }} 個已完成項目</p>
+                            <p v-else>{{ unfinishedTodo.length }} 個已完成項目</p>
                         </div>
                     </div>
                 </div>
@@ -136,8 +136,8 @@ const filteredTodos = computed(() => {
     }
 });
 
-const completedTodo = computed(() => {
-    return alltodo.value.filter(todo => todo.status);
+const unfinishedTodo  = computed(() => {
+    return alltodo.value.filter(todo => !todo.status);
 }
 );
 
