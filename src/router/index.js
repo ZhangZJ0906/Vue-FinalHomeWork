@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
     const token = sessionStorage.getItem("token"); // 从 sessionStorage 获取 token
     if (token) {
       // 如果有 token，则继续导航
-      next({name:"todolist"});
+      next();
     } else {
       // 如果没有 token，则重定向到主页或登录页面
       next({ name: "home" });
