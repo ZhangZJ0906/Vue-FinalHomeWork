@@ -16,7 +16,7 @@
                     <label class="formControls_label" for="email">Email</label>
                     <input class="formControls_input" type="text" id="email" name="email" placeholder="請輸入 email"
                         required v-model="email" />
-                    <span>此欄位不可留空</span>
+                    <span v-if="!email">此欄位不可留空</span>
                     <label class="formControls_label" for="pwd">密碼</label>
                     <input class="formControls_input" type="password" name="pwd" id="pwd" placeholder="請輸入密碼" required
                         v-model="password" />
@@ -40,7 +40,10 @@ const router = useRouter();
 
 
 const login = () => {
-
+    if(email.value === '' || password.value === ''){
+        alert('請輸入完整資料');
+        return;
+    }
 
     axios.post(`${api}/users/sign_in`, {
         'email': email.value,

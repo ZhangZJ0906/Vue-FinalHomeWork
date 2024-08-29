@@ -15,12 +15,13 @@
                 <div class="inputBox">
                     <input type="text" placeholder="請輸入待辦事項" v-model="content" />
                     <a href="#" @click.prevent="addtodo()">
-
                         <i class="fa fa-plus">+</i>
-
                     </a>
                 </div>
-                <div class="todoList_list">
+
+                <!-- todoList tab -->
+                <p v-if="alltodo.length === 0" class=" fs-1 ">目前尚無待辦事項</p>
+                <div v-else class="todoList_list">
                     <ul class="todoList_tab">
                         <li><a @click="currentFilter = 'all'" :class="{ active: currentFilter === 'all' }">全部</a></li>
                         <li><a @click="currentFilter = 'active'" :class="{ active: currentFilter === 'active' }">待完成</a>
@@ -40,13 +41,13 @@
                                 </a>
                             </li>
                         </ul>
-
                         <div class="todoList_statistics">
-                            <p v-if="alltodo.length === 0" class=" fs-1 ">目前尚無待辦事項</p>
-                            <p v-else>{{ unfinishedTodo.length }} 個未完成項目</p>
+                            <p >{{ unfinishedTodo.length }} 個未完成項目</p>
                         </div>
                     </div>
                 </div>
+                <!-- todoList tab -->
+
             </div>
         </div>
     </div>
@@ -77,7 +78,10 @@ const content = ref('');
 const currentFilter = ref('all');
 
 const addtodo = () => {
-   
+    if (content.value === '') {
+        alert('請輸入代辦事項');
+        return;
+    }
     axios.post(`${api}/todos`, {
         'content': content.value
     }, {
@@ -136,7 +140,7 @@ const filteredTodos = computed(() => {
     }
 });
 
-const unfinishedTodo  = computed(() => {
+const unfinishedTodo = computed(() => {
     return alltodo.value.filter(todo => !todo.status);
 }
 );

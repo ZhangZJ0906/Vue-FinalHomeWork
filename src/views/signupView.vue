@@ -46,8 +46,11 @@ const name = ref('');
 const route = useRouter();
 
 const signup = () => {
+    if (email.value === '' || name.value === '' || password.value === '' || confirmPassword.value === '') {
+        alert('請輸入完整資料');
+        return;
+    }
 
-    
     axios.post(`${api}/users/sign_up`, {
         'email': email.value,
         'password': password.value,
@@ -59,7 +62,7 @@ const signup = () => {
     }).then((response) => {
 
         if (response.status === 201) {
-            document.cookie=`username=${name}`
+            document.cookie = `username=${name}`
             alert('註冊成功');
             route.push('/');
         }

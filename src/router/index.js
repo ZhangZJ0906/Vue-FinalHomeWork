@@ -19,21 +19,23 @@ const router = createRouter({
       name: "todolist",
       component: () => import("../views/TodoListView.vue"),
     },
+    {
+      path: "/:catchAll(.*)",
+      name: "NotFound",
+      component: () => import("../views/NotFoundView.vue"),
+    },
   ],
 });
 router.beforeEach((to, from, next) => {
   // 检查目标路由是否需要 token
   if (to.name === "todolist") {
-    const token = sessionStorage.getItem("token"); // 从 sessionStorage 获取 token
+    const token = sessionStorage.getItem("token");
     if (token) {
-      // 如果有 token，则继续导航
       next();
     } else {
-      // 如果没有 token，则重定向到主页或登录页面
       next({ name: "home" });
     }
   } else {
-    // 对其他路由不做拦截，直接继续导航
     next();
   }
 });
