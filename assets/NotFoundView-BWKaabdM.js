@@ -1,1 +1,0 @@
-import{_ as t,c as n,e as s,f as a,a as e,g as c,o as r,p as _}from"./index-B3K52JJf.js";const l={name:"NotFound"},d=e("h1",null,"404 - 頁面未找到",-1),p=e("p",null,"你跑來這幹嘛這邊啥都沒有",-1);function u(i,f,m,h,x,N){const o=c("router-link");return r(),n("div",null,[d,p,s(o,{to:"/"},{default:a(()=>[_("返回首頁")]),_:1})])}const V=t(l,[["render",u]]);export{V as default};
