@@ -33,7 +33,7 @@
                         <ul class="todoList_item" v-for="todo in filteredTodos" :key="todo.id">
                             <li>
                                 <label class="todoList_label">
-                                    <input class="todoList_input" type="checkbox" value="true" v-model="todo.status" />
+                                    <input class="todoList_input" type="checkbox" value="true" v-model="todo.status" @click.prevent="toggleswitch(todo.id)" />
                                     <span>{{ todo.content }}</span>
                                 </label>
                                 <a href="#" @click.prevent="deletetodo(todo.id)">
@@ -76,7 +76,7 @@ const logout = () => {
 const alltodo = ref([]);
 const content = ref('');
 const currentFilter = ref('all');
-
+//todoList
 const addtodo = () => {
     if (content.value === '') {
         alert('請輸入代辦事項');
@@ -129,6 +129,25 @@ const gettodo = () => {
     }).catch((err) => {
         alert(err.response.data.message);
     })
+}
+
+const toggleswitch=(id)=>{
+    const response = axios.patch(`${api}/todos/${id}/toggle`,{}, {
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        }
+        
+    }).then((response)=>{
+        if (response.status === 200) {
+            alert('切換狀態成功');
+            gettodo();
+        } else {
+            alert(err.response.data.message);
+        }
+    }).catch((err) => {
+        alert(err.response.data.message);
+    });
 }
 const filteredTodos = computed(() => {
     if (currentFilter.value === 'completed') {
